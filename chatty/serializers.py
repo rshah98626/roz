@@ -1,13 +1,12 @@
 from rest_framework import serializers
 from .models import CustomerProfile
-from django.contrib.auth.models import User
+from users.serializers import AccountSerializer
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
 
 class CustomerProfileSerializer(serializers.ModelSerializer):
+    user = AccountSerializer(CustomerProfile.user)
+    
     class Meta:
         model = CustomerProfile
         fields = ['cents', 'user']
+        depth = 1

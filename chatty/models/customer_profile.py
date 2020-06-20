@@ -1,7 +1,7 @@
 """Copyright 2020."""
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 class CustomerProfile(models.Model):
@@ -12,7 +12,7 @@ class CustomerProfile(models.Model):
     """
 
     cents = models.IntegerField("money in the account", default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
     def get_money(self):
         """Return the amount of money in a customer's account in dollars."""
