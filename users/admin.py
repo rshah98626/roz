@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import AccountCreationForm, AccountChangeForm
-from .models import Account
+from .models import Account, CustomerProfile
 
 
 class AccountAdmin(UserAdmin):
@@ -13,3 +13,4 @@ class AccountAdmin(UserAdmin):
 
 
 admin.site.register(Account, AccountAdmin)
+admin.site.register(CustomerProfile)

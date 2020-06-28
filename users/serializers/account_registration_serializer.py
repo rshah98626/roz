@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from ..models import Account
-from chatty.models import CustomerProfile
+from users.models import Account, CustomerProfile
 
 
 class AccountRegistrationSerializer(serializers.ModelSerializer):
