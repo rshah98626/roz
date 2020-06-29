@@ -14,6 +14,7 @@ class CustomerProfile(models.Model):
     cents = models.IntegerField("money in the account", default=0)
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
+    @property
     def get_dollars(self):
         """Return the amount of money in a customer's account in dollars."""
         return self.cents / 100
