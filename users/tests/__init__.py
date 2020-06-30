@@ -1,0 +1,1 @@
+from .test_customer_profile_model import CustomerProfileModelTest
