@@ -1,6 +1,7 @@
-from .views import AccountViewset, CustomerProfileViewset
+from .views import *
 from rest_framework.routers import DefaultRouter
 from django.urls import include, path
+
 
 # declare View Sets for User models
 router = DefaultRouter()
