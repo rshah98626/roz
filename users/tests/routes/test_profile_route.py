@@ -45,8 +45,9 @@ class ProfileRouteTest(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        response = self.client.post('/api/v1/auth/login/', {'username': self.username, "password": self.password})
 
+        # retrieve an auth token to access route
+        response = self.client.post('/api/v1/auth/login/', {'username': self.username, "password": self.password})
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + response.json()['key'])
 
     def test_email_cannot_change(self):
