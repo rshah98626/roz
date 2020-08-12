@@ -1,4 +1,4 @@
-"""Copyright 2020."""
+#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 from django.db import models
 from django.contrib.auth import get_user_model

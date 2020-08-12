@@ -1,3 +1,5 @@
+#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
+
 """
 This viewset is deprecated, but it's a good example of how views should be modeled as
 """

@@ -1,3 +1,5 @@
+#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
+
 from django.test import TestCase, Client
 from users.models import Account
 
