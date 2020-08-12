@@ -1,3 +1,7 @@
+"""Copyright 2020."""
+
+#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
+
 from rest_framework import serializers
 from users.models import Account, CustomerProfile
 

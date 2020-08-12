@@ -2,6 +2,8 @@
 This viewset is deprecated, but it's a good example of how views should be modeled as
 """
 
+#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response

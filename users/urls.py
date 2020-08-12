@@ -1,3 +1,5 @@
+#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
+
 from .views import *
 from rest_framework.routers import DefaultRouter
 from django.urls import include, path
