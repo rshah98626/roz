@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-#  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 import os
 import sys
