@@ -15,6 +15,9 @@ class CustomerProfile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
     @property
-    def get_dollars(self):
-        """Return the amount of money in a customer's account in dollars."""
+    def cash(self):
+        """
+        Return the amount of money in a customer's account in dollars.
+        :return: Float
+        """
         return self.cents / 100

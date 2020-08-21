@@ -36,7 +36,7 @@ class CustomerProfileModelTest(TestCase):
 
     def test_customer_profile_get_dollars(self):
         customer_profile = CustomerProfile.objects.latest('id')
-        self.assertEqual(customer_profile.get_dollars, self.cents / 100)
+        self.assertEqual(customer_profile.cash, self.cents / 100)
 
     def test_field_labels(self):
         customer_profile = CustomerProfile.objects.latest('id')
