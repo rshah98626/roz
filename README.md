@@ -14,5 +14,23 @@ $ pip install -r requirements.txt
 
 Make sure to enter the virtualenv by running `source ./.venv/bin/activate`
 
+### Running the App
+First, make sure to check out the Chatty README to setup the necessary containers.
+Then start the server by running `python manage.py runserver`.
+
+### Testing
+Run the entire test suite with `python manage.py test`.
+Here are a couple other handy testing commands:
+```
+# Test the coverage of the tests
+$ coverage run --source='.' manage.py test
+
+# Show the coverage report
+$ coverage report
+
+# Run a certain test module (in this case the profile route test)
+$ python manage.py test users.tests.routes.test_profile_route
+```
+
 ### Next Steps
 Be sure to checkout the app-specific README for what other steps need to be taken to get ready to code!
