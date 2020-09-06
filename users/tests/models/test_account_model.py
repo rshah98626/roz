@@ -13,7 +13,7 @@ class AccountModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        account = Account.objects.create(
+        account = Account(
             email=cls.email,
             username=cls.username,
             first_name=cls.first_name,

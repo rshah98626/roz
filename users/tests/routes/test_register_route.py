@@ -17,7 +17,7 @@ class RegisterRouteTest(TestCase):
         cls.first_name = "Mike"
         cls.last_name = "Wazowski"
 
-        account = Account.objects.create(
+        account = Account(
             email=cls.first_email,
             username=cls.first_username,
             first_name=cls.first_name,
