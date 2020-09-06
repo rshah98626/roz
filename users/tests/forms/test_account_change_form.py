@@ -8,7 +8,7 @@ from users.models import Account
 class AccountChangeFormTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        account = Account.objects.create(
+        account = Account(
             email="test@data.com",
             username="mikeWazo",
             first_name="Mike",

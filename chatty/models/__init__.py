@@ -2,4 +2,5 @@
 
 from .fund import Fund
 from .stock_holding import StockHolding
+from .post import Post
 

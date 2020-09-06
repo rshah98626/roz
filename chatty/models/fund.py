@@ -13,10 +13,10 @@ class Fund(models.Model):
     @property
     def cash(self):
         """
-        Gets the cash on hand in dollars
+        Gets the cash on hand in dollars.
         :return: Float
         """
-        return self.cash_on_hand_cents * 100
+        return self.cash_on_hand_cents / 100
 
     @property
     def total_value(self):
@@ -24,13 +24,5 @@ class Fund(models.Model):
         Returns the total value of the fund (in dollars) at this point in time.
         :return: Float
         """
-        total = sum(holding.value for holding in self.stock_holdings)
+        total = sum(holding.value for holding in self.holdings.all())
         return total + self.cash
-
-    @property
-    def stock_holdings(self):
-        """
-        Returns the stock holdings for a given
-        :return: [StockHolding]
-        """
-        return self.stock_holding_set.all()

@@ -12,7 +12,7 @@ class AccountCreationFormTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        account = Account.objects.create(
+        account = Account(
             email="test@data.com",
             username=cls.username,
             first_name="Mike",

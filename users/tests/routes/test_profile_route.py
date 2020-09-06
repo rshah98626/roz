@@ -17,7 +17,7 @@ class ProfileRouteTest(TestCase):
         cls.first_name = "Mike"
         cls.last_name = "Wazowski"
 
-        account = Account.objects.create(
+        account = Account(
             email=cls.email,
             username=cls.username,
             first_name=cls.first_name,
@@ -30,7 +30,7 @@ class ProfileRouteTest(TestCase):
         cls.other_username = 'mikeWazo2'
         cls.other_email = 'test2@data.com'
 
-        account = Account.objects.create(
+        account = Account(
             email=cls.other_email,
             username=cls.other_username,
             first_name=cls.first_name,

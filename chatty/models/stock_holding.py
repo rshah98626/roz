@@ -12,7 +12,7 @@ class StockHolding(models.Model):
     ticker = models.CharField('The symbol of the stock', max_length=10)
     price_cents = models.IntegerField("Price (in cents) stock is bought at")
     quantity = models.IntegerField("Number of stocks bought")
-    fund = models.ForeignKey(Fund, related_name='fund', on_delete=models.SET_NULL, null=True)
+    fund = models.ForeignKey(Fund, related_name='holdings', on_delete=models.SET_NULL, null=True)
     purchased_at = models.DateTimeField('Date and time the asset was purchased', auto_now_add=True)
     sold_at = models.DateTimeField('When asset was sold', null=True)
 
@@ -30,4 +30,4 @@ class StockHolding(models.Model):
         Returns the price an asset was bought at in dollars.
         :return: Float
         """
-        return self.price_cents * 100
+        return self.price_cents / 100

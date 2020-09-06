@@ -16,7 +16,7 @@ class LoginRouteTest(TestCase):
         cls.false_password = 'that_is_not_the_password'
         cls.false_username = 'not_a_real_username'
 
-        account = Account.objects.create(
+        account = Account(
             email=cls.email,
             username=cls.username,
             first_name=cls.first_name,
