@@ -14,6 +14,7 @@ class PostModelTest(TestCase):
         cls.before_create = datetime.now(timezone.utc)
         cls.message = "Here's my first post"
 
+        # init post
         post = Post(
             message=cls.message,
             fund=fund
