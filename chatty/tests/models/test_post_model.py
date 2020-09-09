@@ -31,3 +31,6 @@ class PostModelTest(TestCase):
 
     def test_fund(self):
         self.assertEquals(Post.objects.latest('id').fund, Fund.objects.latest('id'))
+
+    def test_created_at(self):
+        self.assertGreater(Post.objects.latest('id').created_at, self.before_create)
