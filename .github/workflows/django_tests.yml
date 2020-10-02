@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: 3.7.9
 
+      - name: copy env file
+        run: mv .env.dev .env
+
       - name: psycopg2 prerequisites
         run: sudo apt-get install python-dev libpq-dev
 

@@ -2,6 +2,7 @@
 
 from django.db import models
 from .fund import Fund
+from roz.custom_storage import VideoStorage
 
 
 class Video(models.Model):
@@ -10,6 +11,6 @@ class Video(models.Model):
     """
 
     created_at = models.DateTimeField('When the video was created', auto_now_add=True)
-    file_name = models.TextField('The filename of where the video can be retrieved from')
+    file = models.FileField('The video file instance', storage=VideoStorage())
     description = models.TextField('A description of what the video is about', null=True)
     fund = models.ForeignKey(Fund, related_name='videos', on_delete=models.SET_NULL, null=True)
