@@ -101,7 +101,7 @@ class FundModelTest(TestCase):
 
     def test_field_labels(self):
         fund = Fund.objects.latest('id')
-        self.assertEquals(fund._meta.get_field('cash_on_hand_cents').verbose_name, 'Money not in investments (cents)')
+        self.assertEqual(fund._meta.get_field('cash_on_hand_cents').verbose_name, 'Money not in investments (cents)')
 
     def test_cash_cents_is_correct(self):
         self.assertEqual(Fund.objects.latest('id').cash_on_hand_cents, self.fund_cash)

@@ -40,5 +40,5 @@ class CustomerProfileModelTest(TestCase):
 
     def test_field_labels(self):
         customer_profile = CustomerProfile.objects.latest('id')
-        self.assertEquals(customer_profile._meta.get_field('cents').verbose_name, 'money in the account (cents)')
-        self.assertEquals(customer_profile._meta.get_field('user').verbose_name, 'user')
+        self.assertEqual(customer_profile._meta.get_field('cents').verbose_name, 'money in the account (cents)')
+        self.assertEqual(customer_profile._meta.get_field('user').verbose_name, 'user')

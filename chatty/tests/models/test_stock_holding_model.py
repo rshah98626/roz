@@ -48,14 +48,14 @@ class StockHoldingModelTest(TestCase):
 
     def test_field_labels(self):
         stock_holding = StockHolding.objects.latest('id')
-        self.assertEquals(stock_holding._meta.get_field('ticker').verbose_name, 'The symbol of the stock')
-        self.assertEquals(stock_holding._meta.get_field('price_cents').verbose_name,
+        self.assertEqual(stock_holding._meta.get_field('ticker').verbose_name, 'The symbol of the stock')
+        self.assertEqual(stock_holding._meta.get_field('price_cents').verbose_name,
                           'Price (in cents) stock is bought at')
-        self.assertEquals(stock_holding._meta.get_field('quantity').verbose_name, 'Number of stocks bought')
-        self.assertEquals(stock_holding._meta.get_field('fund').verbose_name, 'fund')
-        self.assertEquals(stock_holding._meta.get_field('purchased_at').verbose_name,
+        self.assertEqual(stock_holding._meta.get_field('quantity').verbose_name, 'Number of stocks bought')
+        self.assertEqual(stock_holding._meta.get_field('fund').verbose_name, 'fund')
+        self.assertEqual(stock_holding._meta.get_field('purchased_at').verbose_name,
                           'Date and time the asset was purchased')
-        self.assertEquals(stock_holding._meta.get_field('sold_at').verbose_name, 'When asset was sold')
+        self.assertEqual(stock_holding._meta.get_field('sold_at').verbose_name, 'When asset was sold')
 
     def test_value_property(self):
         value = self.price_cents * self.quantity / 100

@@ -1,10 +1,9 @@
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 from django.test import TestCase
-from users.models import Account
 from rest_framework import status
 from rest_framework.test import APIClient
-from rest_framework.authtoken.models import Token
+from users.models import Account
 
 
 class ProfileRouteTest(TestCase):
@@ -49,7 +48,10 @@ class ProfileRouteTest(TestCase):
         self.client = APIClient()
 
         # retrieve an auth token to access route
-        response = self.client.post('/api/v1/auth/login/', {'username': self.username, "password": self.password})
+        response = self.client.post('/api/v1/auth/login/', {
+            'username': self.username,
+            "password": self.password
+        })
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + response.json()['key'])
 
     def test_email_cannot_change(self):

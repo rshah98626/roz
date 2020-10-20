@@ -33,9 +33,10 @@ class VideoView(AuthenticatedView):
         # formulate filename
         file = request.data['file']
         file_extension = 'mp4' if request.content_type == 'video/mp4' else 'mov'
-        filename = f'{int(time.time())}_fund_{pk}_{file.name}'
+        filename = f'{int(time.time())}_fund_{pk}_{file.name}.{file_extension}'
 
         # instantiate & save video object
         video = Video.objects.create(fund=fund)
-        video.file.save(f'{filename}.{file_extension}', file, save=True)
-        return Response({'message': 'Video created', 'video_id': video.id}, status=status.HTTP_201_CREATED)
+        video.file.save(filename, file, save=True)
+        return Response({'message': 'Video created', 'video_id': video.id, 'filename': filename},
+                        status=status.HTTP_201_CREATED)

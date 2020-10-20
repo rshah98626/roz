@@ -33,29 +33,29 @@ class VideoModelTest(TestCase):
 
     def test_field_labels(self):
         video = Video.objects.latest('id')
-        self.assertEquals(video._meta.get_field('description').verbose_name, 'A description of what the video is about')
-        self.assertEquals(video._meta.get_field('created_at').verbose_name, 'When the video was created')
-        self.assertEquals(video._meta.get_field('fund').verbose_name, 'fund')
-        self.assertEquals(video._meta.get_field('file_name').verbose_name, 'The filename of where the video can be'
+        self.assertEqual(video._meta.get_field('description').verbose_name, 'A description of what the video is about')
+        self.assertEqual(video._meta.get_field('created_at').verbose_name, 'When the video was created')
+        self.assertEqual(video._meta.get_field('fund').verbose_name, 'fund')
+        self.assertEqual(video._meta.get_field('file_name').verbose_name, 'The filename of where the video can be'
                                                                            ' retrieved from')
 
     def test_description(self):
         videos = Video.objects.all()
         video1, video2 = videos.first(), videos.last()
         self.assertIsNone(video1.description)
-        self.assertEquals(video2.description, self.video_description2)
+        self.assertEqual(video2.description, self.video_description2)
 
     def test_fund(self):
         videos = Video.objects.all()
         video1, video2 = videos.first(), videos.last()
-        self.assertEquals(video1.fund, Fund.objects.latest('id'))
-        self.assertEquals(video2.fund, Fund.objects.latest('id'))
+        self.assertEqual(video1.fund, Fund.objects.latest('id'))
+        self.assertEqual(video2.fund, Fund.objects.latest('id'))
 
     def test_file_name(self):
         videos = Video.objects.all()
         video1, video2 = videos.first(), videos.last()
-        self.assertEquals(video1.file_name, self.video_filename1)
-        self.assertEquals(video2.file_name, self.video_filename2)
+        self.assertEqual(video1.file_name, self.video_filename1)
+        self.assertEqual(video2.file_name, self.video_filename2)
 
     def test_created_at(self):
         videos = Video.objects.all()

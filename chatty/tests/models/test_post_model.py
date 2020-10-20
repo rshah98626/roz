@@ -23,15 +23,15 @@ class PostModelTest(TestCase):
 
     def test_field_labels(self):
         post = Post.objects.latest('id')
-        self.assertEquals(post._meta.get_field('message').verbose_name, 'The content of the post')
-        self.assertEquals(post._meta.get_field('created_at').verbose_name, 'When the post was created')
-        self.assertEquals(post._meta.get_field('fund').verbose_name, 'fund')
+        self.assertEqual(post._meta.get_field('message').verbose_name, 'The content of the post')
+        self.assertEqual(post._meta.get_field('created_at').verbose_name, 'When the post was created')
+        self.assertEqual(post._meta.get_field('fund').verbose_name, 'fund')
 
     def test_message(self):
-        self.assertEquals(Post.objects.latest('id').message, self.message)
+        self.assertEqual(Post.objects.latest('id').message, self.message)
 
     def test_fund(self):
-        self.assertEquals(Post.objects.latest('id').fund, Fund.objects.latest('id'))
+        self.assertEqual(Post.objects.latest('id').fund, Fund.objects.latest('id'))
 
     def test_created_at(self):
         self.assertGreater(Post.objects.latest('id').created_at, self.before_create)
