@@ -21,14 +21,15 @@ class VideoView(AuthenticatedView):
     def put(self, request, pk):
         # validate parsing went correctly
         if 'file' not in request.data:
-            raise ParseError("Empty content")
+            raise ParseError("File unable to be parsed.")
         if request.content_type not in self.accepted_media_types:
             raise UnsupportedMediaType(media_type=request.content_type)
 
         # validate fund exists
-        fund = Fund.objects.get(pk=pk)
-        if fund is None:
-            return Response({'message': 'Invalid fund id provided.'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            fund = Fund.objects.get(pk=pk)
+        except Fund.DoesNotExist:
+            return Response({'detail': 'Invalid fund id provided.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # formulate filename
         file = request.data['file']

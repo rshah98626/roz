@@ -18,7 +18,6 @@ class FundModelTest(TestCase):
         cls.post_message2 = 'When you can\'t beat \'em, join \'em.'
         cls.article_message1 = "This is the first article I've written. I recommend you buy $ORNGE because it's going" \
                                " to do well during earnings."
-        cls.video_file_name1 = "funny.mp4"
 
         fund = Fund(
             cash_on_hand_cents=cls.fund_cash
@@ -64,7 +63,6 @@ class FundModelTest(TestCase):
 
         # init video
         video1 = Video(
-            file_name=cls.video_file_name1,
             fund=fund
         )
         video1.save()
@@ -114,4 +112,3 @@ class FundModelTest(TestCase):
     def test_video(self):
         fund = Fund.objects.latest('id')
         self.assertEqual(len(fund.videos.all()), 1)
-        self.assertEqual(fund.videos.first().file_name, self.video_file_name1)
