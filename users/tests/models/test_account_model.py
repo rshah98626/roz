@@ -37,9 +37,13 @@ class AccountModelTest(TestCase):
 
     def test_field_labels(self):
         account = Account.objects.latest('id')
-        self.assertEqual(account._meta.get_field('email').verbose_name, 'email address')
-        self.assertEqual(account._meta.get_field('username').verbose_name, 'username')
-        self.assertEqual(account._meta.get_field('last_name').verbose_name, 'last name')
-        self.assertEqual(account._meta.get_field('first_name').verbose_name, 'first name')
-        self.assertEqual(account._meta.get_field('password').verbose_name, 'password')
-
+        self.assertEqual(account._meta.get_field(
+            'email').verbose_name, 'email address')
+        self.assertEqual(account._meta.get_field(
+            'username').verbose_name, 'username')
+        self.assertEqual(account._meta.get_field(
+            'last_name').verbose_name, 'last name')
+        self.assertEqual(account._meta.get_field(
+            'first_name').verbose_name, 'first name')
+        self.assertEqual(account._meta.get_field(
+            'password').verbose_name, 'password')

@@ -25,7 +25,8 @@ class AccountCreationFormTest(TestCase):
         form = AccountCreationForm()
         self.assertEqual(form.fields['username'].label, "Username")
         self.assertEqual(form.fields['password1'].label, "Password")
-        self.assertEqual(form.fields['password2'].label, "Password confirmation")
+        self.assertEqual(
+            form.fields['password2'].label, "Password confirmation")
 
     def test_create_user(self):
         form = AccountCreationForm(data={

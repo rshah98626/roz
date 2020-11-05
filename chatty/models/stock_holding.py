@@ -12,8 +12,10 @@ class StockHolding(models.Model):
     ticker = models.CharField('The symbol of the stock', max_length=10)
     price_cents = models.IntegerField("Price (in cents) stock is bought at")
     quantity = models.IntegerField("Number of stocks bought")
-    fund = models.ForeignKey(Fund, related_name='holdings', on_delete=models.SET_NULL, null=True)
-    purchased_at = models.DateTimeField('Date and time the asset was purchased', auto_now_add=True)
+    fund = models.ForeignKey(
+        Fund, related_name='holdings', on_delete=models.SET_NULL, null=True)
+    purchased_at = models.DateTimeField(
+        'Date and time the asset was purchased', auto_now_add=True)
     sold_at = models.DateTimeField('When asset was sold', null=True)
 
     @property

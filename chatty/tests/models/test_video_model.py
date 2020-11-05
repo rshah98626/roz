@@ -31,8 +31,10 @@ class VideoModelTest(TestCase):
 
     def test_field_labels(self):
         video = Video.objects.latest('id')
-        self.assertEqual(video._meta.get_field('description').verbose_name, 'A description of what the video is about')
-        self.assertEqual(video._meta.get_field('created_at').verbose_name, 'When the video was created')
+        self.assertEqual(video._meta.get_field(
+            'description').verbose_name, 'A description of what the video is about')
+        self.assertEqual(video._meta.get_field(
+            'created_at').verbose_name, 'When the video was created')
         self.assertEqual(video._meta.get_field('fund').verbose_name, 'fund')
 
     def test_description(self):

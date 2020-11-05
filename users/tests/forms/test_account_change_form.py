@@ -24,7 +24,8 @@ class AccountChangeFormTest(TestCase):
         self.assertEqual(form.fields['last_login'].label, "Last login")
         self.assertEqual(form.fields['is_superuser'].label, "Superuser status")
         self.assertEqual(form.fields['groups'].label, "Groups")
-        self.assertEqual(form.fields['user_permissions'].label, "User permissions")
+        self.assertEqual(
+            form.fields['user_permissions'].label, "User permissions")
         self.assertEqual(form.fields['first_name'].label, "First name")
         self.assertEqual(form.fields['last_name'].label, "Last name")
         self.assertEqual(form.fields['email'].label, "Email address")

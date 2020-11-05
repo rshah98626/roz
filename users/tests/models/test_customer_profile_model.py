@@ -26,8 +26,10 @@ class CustomerProfileModelTest(TestCase):
     def test_customer_profile_has_correct_user_information(self):
         customer_profile = CustomerProfile.objects.latest('id')
         self.assertEqual(customer_profile.user.email, self.account_email)
-        self.assertEqual(customer_profile.user.first_name, self.account_first_name)
-        self.assertEqual(customer_profile.user.last_name, self.account_last_name)
+        self.assertEqual(customer_profile.user.first_name,
+                         self.account_first_name)
+        self.assertEqual(customer_profile.user.last_name,
+                         self.account_last_name)
         self.assertEqual(customer_profile.user.username, self.account_username)
 
     def test_customer_profile_has_correct_cents(self):
@@ -40,5 +42,7 @@ class CustomerProfileModelTest(TestCase):
 
     def test_field_labels(self):
         customer_profile = CustomerProfile.objects.latest('id')
-        self.assertEqual(customer_profile._meta.get_field('cents').verbose_name, 'money in the account (cents)')
-        self.assertEqual(customer_profile._meta.get_field('user').verbose_name, 'user')
+        self.assertEqual(customer_profile._meta.get_field(
+            'cents').verbose_name, 'money in the account (cents)')
+        self.assertEqual(customer_profile._meta.get_field(
+            'user').verbose_name, 'user')

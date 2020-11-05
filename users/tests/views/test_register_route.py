@@ -48,7 +48,8 @@ class RegisterRouteTest(TestCase):
         customer_profile = CustomerProfile.objects.latest('id')
         self.assertTrue(account)
         self.assertTrue(customer_profile.user, account)
-        self.assertEqual(customer_profile.cents, 100000)  # initial amount of cash in a CustomerProfile
+        # initial amount of cash in a CustomerProfile
+        self.assertEqual(customer_profile.cents, 100000)
 
     def test_reject_user_if_passwords_do_not_match(self):
         data = {
@@ -78,4 +79,5 @@ class RegisterRouteTest(TestCase):
 
         response = self.client.post('/api/v1/auth/registration/', data)
         self.assertFalse(self.successful_response(response))
-        self.assertEqual(response.json()['username'], ['A user with that username already exists.'])
+        self.assertEqual(response.json()['username'], [
+                         'A user with that username already exists.'])
