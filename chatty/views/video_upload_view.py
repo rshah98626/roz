@@ -1,20 +1,12 @@
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 import time
-from rest_framework import authentication, permissions, status
-from rest_framework.views import APIView
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
 from rest_framework.exceptions import ParseError, UnsupportedMediaType
 from chatty.models import Fund, Video
-
-
-class AuthenticatedView(APIView):
-    """
-    A base view which mandates access to only authenticated users.
-    """
-    authentication_classes = (authentication.TokenAuthentication, )
-    permission_classes = (permissions.IsAuthenticated, )
+from roz.inheritable_views import AuthenticatedView
 
 
 class VideoUploadView(AuthenticatedView):

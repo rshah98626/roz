@@ -17,3 +17,10 @@ class Video(models.Model):
         'A description of what the video is about', null=True)
     fund = models.ForeignKey(Fund, related_name='videos',
                              on_delete=models.SET_NULL, null=True)
+
+    def get_url(self):
+        """
+        Get the URL of the file so that it can be added to the serializer.
+        :return:
+        """
+        return self.file.url

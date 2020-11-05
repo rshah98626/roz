@@ -48,6 +48,7 @@ class RegisterRouteTest(TestCase):
         customer_profile = CustomerProfile.objects.latest('id')
         self.assertTrue(account)
         self.assertTrue(customer_profile.user, account)
+
         # initial amount of cash in a CustomerProfile
         self.assertEqual(customer_profile.cents, 100000)
 
