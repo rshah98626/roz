@@ -64,3 +64,13 @@ class VideoModelTest(TestCase):
 
         video = Video.objects.latest('id')
         self.assertEqual(video.file.name, filename)
+
+    @patch('storages.backends.s3boto3.S3Boto3Storage.url')
+    def test_file_url(self, mock_file_url):
+        ret_url = 'hi.com/test.mov'
+        mock_file_url.return_value = ret_url
+        v = Video.objects.create(fund=Fund.objects.latest('id'))
+        v.file.save('name', BytesIO(b'file'), save=True)
+
+        video = Video.objects.latest('id')
+        self.assertEqual(video.get_url(), ret_url)
