@@ -1,10 +1,9 @@
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 from django.test import TestCase
-from users.models import Account
 from rest_framework import status
 from rest_framework.test import APIClient
-from rest_framework.authtoken.models import Token
+from users.models import Account
 
 
 class ProfileRouteTest(TestCase):
@@ -49,8 +48,12 @@ class ProfileRouteTest(TestCase):
         self.client = APIClient()
 
         # retrieve an auth token to access route
-        response = self.client.post('/api/v1/auth/login/', {'username': self.username, "password": self.password})
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + response.json()['key'])
+        response = self.client.post('/api/v1/auth/login/', {
+            'username': self.username,
+            "password": self.password
+        })
+        self.client.credentials(
+            HTTP_AUTHORIZATION='Token ' + response.json()['key'])
 
     def test_email_cannot_change(self):
         data = {'username': self.username, 'email': self.other_email}
@@ -83,7 +86,8 @@ class ProfileRouteTest(TestCase):
         json = response.json()
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(json['username'][0], "A user with that username already exists.")
+        self.assertEqual(json['username'][0],
+                         "A user with that username already exists.")
 
     def test_first_name_can_change(self):
         data = {'username': self.username, 'first_name': self.other_first_name}
@@ -110,7 +114,8 @@ class ProfileRouteTest(TestCase):
         self.assertEqual(json['last_name'], self.other_last_name)
 
     def test_all_fields_change_except_email(self):
-        data = {'username': self.alternate_username, 'first_name': self.other_first_name, 'last_name': self.other_last_name}
+        data = {'username': self.alternate_username,
+                'first_name': self.other_first_name, 'last_name': self.other_last_name}
 
         response = self.client.put('/api/v1/auth/user/', data)
         json = response.json()
@@ -122,7 +127,8 @@ class ProfileRouteTest(TestCase):
         self.assertEqual(json['last_name'], self.other_last_name)
 
     def test_username_must_be_present_to_change(self):
-        data = {'first_name': self.other_first_name, 'last_name': self.other_last_name}
+        data = {'first_name': self.other_first_name,
+                'last_name': self.other_last_name}
 
         response = self.client.put('/api/v1/auth/user/', data)
         json = response.json()
@@ -150,5 +156,3 @@ class ProfileRouteTest(TestCase):
         self.assertEqual(json['email'], self.email)
         self.assertEqual(json['first_name'], self.first_name)
         self.assertEqual(json['last_name'], self.last_name)
-
-

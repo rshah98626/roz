@@ -8,7 +8,8 @@ class Fund(models.Model):
     This object represents a group of holdings based around a certain strategy.
     """
 
-    cash_on_hand_cents = models.IntegerField("Money not in investments (cents)", default=0)
+    cash_on_hand_cents = models.IntegerField(
+        "Money not in investments (cents)", default=0)
 
     @property
     def cash(self):

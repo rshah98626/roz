@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&7+yun8f5z(zn_*k@w5w5l+39%ykwh&pc@4)ibd^n0#-pjl%z2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # token for authentication
     'rest_auth',
+    'storages',
     # for registration and other created authentication routes
     'django.contrib.sites',
     'allauth',
@@ -152,6 +154,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+# S3 configuration
+DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 
 # djangorestframework-jsonapi configuration
 # REST_FRAMEWORK = {
