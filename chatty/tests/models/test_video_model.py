@@ -56,9 +56,9 @@ class VideoModelTest(TestCase):
         self.assertGreater(video2.created_at, self.before_create2)
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.save')
-    def test_file_field(self, mock_save):
+    def test_file_field(self, mock_filename):
         filename = 'file_name'
-        mock_save.return_value = filename
+        mock_filename.return_value = filename
         v = Video.objects.create(fund=Fund.objects.latest('id'))
         v.file.save(filename, BytesIO(b'file'), save=True)
 
@@ -66,8 +66,10 @@ class VideoModelTest(TestCase):
         self.assertEqual(video.file.name, filename)
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
-    def test_file_url(self, mock_file_url):
+    @patch('storages.backends.s3boto3.S3Boto3Storage.save')
+    def test_file_url(self, mock_filename, mock_file_url):
         ret_url = 'hi.com/test.mov'
+        mock_filename.return_value = 'test.mov'
         mock_file_url.return_value = ret_url
         v = Video.objects.create(fund=Fund.objects.latest('id'))
         v.file.save('name', BytesIO(b'file'), save=True)
