@@ -5,6 +5,9 @@ from chatty.models import Video
 
 
 class VideoSerializer(serializers.ModelSerializer):
+    """
+    This class specifies how videos should be represented as JSON.
+    """
     url = serializers.CharField(source='get_url', read_only=True)
 
     class Meta:
