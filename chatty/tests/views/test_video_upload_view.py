@@ -27,7 +27,7 @@ class VideoUploadTest(APITestCase):
         cls.user.set_password(cls.password)
         cls.user.save()
 
-        fund = Fund(cash_on_hand_cents=100)
+        fund = Fund(name="First fund", cash_on_hand_cents=100)
         fund.save()
         cls.fund_pk = fund.pk
 

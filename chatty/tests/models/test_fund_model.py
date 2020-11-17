@@ -8,6 +8,7 @@ class FundModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.fund_cash = 1000
+        cls.fund_name = 'First Fund'
         cls.ticker1 = 'AAPL'
         cls.stock_price1 = 50000
         cls.stock_quantity1 = 10
@@ -20,6 +21,7 @@ class FundModelTest(TestCase):
                                " to do well during earnings."
 
         fund = Fund(
+            name=cls.fund_name,
             cash_on_hand_cents=cls.fund_cash
         )
         fund.save()
@@ -99,8 +101,10 @@ class FundModelTest(TestCase):
 
     def test_field_labels(self):
         fund = Fund.objects.latest('id')
-        self.assertEqual(fund._meta.get_field(
-            'cash_on_hand_cents').verbose_name, 'Money not in investments (cents)')
+        self.assertEqual(fund._meta.get_field('cash_on_hand_cents').verbose_name,
+                         'Money not in investments (cents)')
+        self.assertEqual(fund._meta.get_field('name').verbose_name,
+                         'The name of the fund')
 
     def test_cash_cents_is_correct(self):
         self.assertEqual(Fund.objects.latest(
@@ -114,3 +118,7 @@ class FundModelTest(TestCase):
     def test_video(self):
         fund = Fund.objects.latest('id')
         self.assertEqual(len(fund.videos.all()), 1)
+
+    def test_fund_name(self):
+        fund = Fund.objects.latest('id')
+        self.assertEqual(fund.name, self.fund_name)

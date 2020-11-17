@@ -7,7 +7,7 @@ class Fund(models.Model):
     """
     This object represents a group of holdings based around a certain strategy.
     """
-
+    name = models.CharField('The name of the fund', max_length=100, unique=True)
     cash_on_hand_cents = models.IntegerField(
         "Money not in investments (cents)", default=0)
 
