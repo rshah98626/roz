@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
 from rest_framework.exceptions import ParseError, UnsupportedMediaType
-from chatty.models import Fund, Video
+from chatty.models import Fund, Video, Post
 from roz.inheritable_views import AuthenticatedView
 
 
@@ -42,7 +42,8 @@ class VideoUploadView(AuthenticatedView):
         filename = f'{int(time.time())}_fund_{fund_id}_{file.name}.{file_extension}'
 
         # instantiate & save video object
-        video = Video.objects.create(fund=fund)
+        new_post = Post.objects.create(fund=fund)
+        video = Video.objects.create(post=new_post)
         video.file.save(filename, file, save=True)
         return Response({'message': 'Video created', 'video_id': video.id, 'filename': filename},
                         status=status.HTTP_201_CREATED)

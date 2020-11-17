@@ -1,7 +1,7 @@
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 from django.test import TestCase
-from chatty.models import Fund, StockHolding, Post, Article, Video
+from chatty.models import Fund, StockHolding, Post
 
 
 class FundModelTest(TestCase):
@@ -56,19 +56,6 @@ class FundModelTest(TestCase):
         )
         post2.save()
 
-        # init article
-        article1 = Article(
-            text=cls.article_message1,
-            fund=fund
-        )
-        article1.save()
-
-        # init video
-        video1 = Video(
-            fund=fund
-        )
-        video1.save()
-
     def test_cash_in_dollars(self):
         self.assertEqual(Fund.objects.latest('id').cash, self.fund_cash / 100)
 
@@ -107,17 +94,8 @@ class FundModelTest(TestCase):
                          'The name of the fund')
 
     def test_cash_cents_is_correct(self):
-        self.assertEqual(Fund.objects.latest(
-            'id').cash_on_hand_cents, self.fund_cash)
-
-    def test_article(self):
-        fund = Fund.objects.latest('id')
-        self.assertEqual(len(fund.articles.all()), 1)
-        self.assertEqual(fund.articles.first().text, self.article_message1)
-
-    def test_video(self):
-        fund = Fund.objects.latest('id')
-        self.assertEqual(len(fund.videos.all()), 1)
+        self.assertEqual(Fund.objects.latest('id').cash_on_hand_cents,
+                         self.fund_cash)
 
     def test_fund_name(self):
         fund = Fund.objects.latest('id')
