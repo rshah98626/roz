@@ -100,3 +100,7 @@ class FundModelTest(TestCase):
     def test_fund_name(self):
         fund = Fund.objects.latest('id')
         self.assertEqual(fund.name, self.fund_name)
+
+    def test_fund_to_string(self):
+        fund = Fund.objects.latest('id')
+        self.assertEqual(fund.__str__(), self.fund_name)

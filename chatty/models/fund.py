@@ -27,3 +27,6 @@ class Fund(models.Model):
         """
         total = sum(holding.value for holding in self.holdings.all())
         return total + self.cash
+
+    def __str__(self):
+        return f"{self.name}"
