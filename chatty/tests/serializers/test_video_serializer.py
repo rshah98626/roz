@@ -16,8 +16,11 @@ class VideoSerializerTest(TestCase):
         self.assertTrue(serializer.is_valid())
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
-    def test_video_serialization(self, url_name):
-        url_name.return_value = "localhost"
+    @patch('storages.backends.s3boto3.S3Boto3Storage.save')
+    def test_video_serialization(self, mock_filename, url_name):
+        ret_url = 'hi.com/test.mov'
+        mock_filename.return_value = 'test.mov'
+        url_name.return_value = ret_url
         description = 'cool video'
 
         f = Fund.objects.create(cash_on_hand_cents=0, name='First Fund')
@@ -30,5 +33,5 @@ class VideoSerializerTest(TestCase):
         self.assertEqual(serialized_data['description'], description)
         self.assertLess(datetime.strptime(serialized_data['created_at'], '%Y-%m-%dT%H:%M:%S.%f%z'),
                         datetime.now(timezone.utc))
-        self.assertEqual(serialized_data['url'], 'localhost')
+        self.assertEqual(serialized_data['url'], ret_url)
         self.assertEqual(serialized_data['id'], v.id)
