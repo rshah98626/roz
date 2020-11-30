@@ -83,7 +83,9 @@ class PostSerializerTest(TestCase):
         )
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
-    def test_one_video_one_article(self, url_name):
+    @patch('storages.backends.s3boto3.S3Boto3Storage.save')
+    def test_one_video_one_article(self, mock_filename, url_name):
+        mock_filename.return_value = 'filename'
         url_name.return_value = 'localhost'
         p = Post.objects.get(pk=self.post2_id)
         v = Video.objects.get(pk=self.video1_id)
@@ -115,7 +117,9 @@ class PostSerializerTest(TestCase):
         )
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
-    def test_one_video(self, url_name):
+    @patch('storages.backends.s3boto3.S3Boto3Storage.save')
+    def test_one_video(self, mock_filename, url_name):
+        mock_filename.return_value = 'filename'
         url_name.return_value = 'localhost'
         p = Post.objects.get(pk=self.post3_id)
         v = Video.objects.get(pk=self.video2_id)
@@ -157,7 +161,9 @@ class PostSerializerTest(TestCase):
         )
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
-    def test_multiple_assets(self, url_name):
+    @patch('storages.backends.s3boto3.S3Boto3Storage.save')
+    def test_multiple_assets(self, mock_filename, url_name):
+        mock_filename.return_value = 'filename'
         url_name.return_value = 'localhost'
         p = Post.objects.get(pk=self.post5_id)
         v1, v2 = Video.objects.get(pk=self.video3_id), Video.objects.get(pk=self.video4_id)
