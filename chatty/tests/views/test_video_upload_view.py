@@ -2,10 +2,11 @@
 
 from io import BytesIO
 from unittest.mock import patch
+
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
+
 from chatty.models import Fund, Video, Post
-from chatty.views import VideoUploadView
 from users.models import Account
 
 
@@ -33,7 +34,6 @@ class VideoUploadTest(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.testable_view = VideoUploadView.as_view()
         self.client.force_authenticate(user=self.user)
         self.filename = "firstVideo"
 

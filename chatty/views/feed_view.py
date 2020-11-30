@@ -17,7 +17,6 @@ class FeedView(AuthenticatedView):
         GET a list of Posts associated with all funds.
         :return:
         """
-        posts = Post.objects.all().filter(is_deleted=False)\
-                    .order_by('-created_at')
+        posts = Post.objects.all().filter(is_deleted=False).order_by('-created_at')
         return Response({'posts': PostSerializer(posts, many=True).data},
                         status=status.HTTP_200_OK)

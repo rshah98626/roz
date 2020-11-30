@@ -62,6 +62,10 @@ class PostSerializerTest(TestCase):
         Article.objects.create(post=post5, text=cls.article4_text)
 
     def test_post_deserialization(self):
+        """
+        Verify that a post can be a valid serialization.
+        :return:
+        """
         serializer = PostSerializer(data={
             'message': 'This is a post',
             'fund': {
@@ -71,6 +75,10 @@ class PostSerializerTest(TestCase):
         self.assertTrue(serializer.is_valid())
 
     def test_no_videos_no_articles(self):
+        """
+        Check that a Post with no articles or videos can be serialized correctly.
+        :return:
+        """
         p = Post.objects.get(pk=self.post1_id)
         serialized_data = PostSerializer(p).data
 
@@ -84,9 +92,15 @@ class PostSerializerTest(TestCase):
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
     @patch('storages.backends.s3boto3.S3Boto3Storage.save')
-    def test_one_video_one_article(self, mock_filename, url_name):
+    def test_one_video_one_article(self, mock_filename, mock_url_name):
+        """
+        Verify that a Post with one video and one article looks correct in JSON.
+        :param mock_filename: Return object for saves
+        :param mock_url_name: Return object for url calls
+        :return:
+        """
         mock_filename.return_value = 'filename'
-        url_name.return_value = 'localhost'
+        mock_url_name.return_value = 'localhost'
         p = Post.objects.get(pk=self.post2_id)
         v = Video.objects.get(pk=self.video1_id)
         v.file.save('filename', BytesIO(b'file'), save=True)
@@ -118,9 +132,15 @@ class PostSerializerTest(TestCase):
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
     @patch('storages.backends.s3boto3.S3Boto3Storage.save')
-    def test_one_video(self, mock_filename, url_name):
+    def test_one_video(self, mock_filename, mock_url_name):
+        """
+        Verify that a Post with one video only is serialized properly.
+        :param mock_filename: Mock save value
+        :param mock_url_name: Mock url value
+        :return:
+        """
         mock_filename.return_value = 'filename'
-        url_name.return_value = 'localhost'
+        mock_url_name.return_value = 'localhost'
         p = Post.objects.get(pk=self.post3_id)
         v = Video.objects.get(pk=self.video2_id)
         v.file.save('filename', BytesIO(b'file'), save=True)
@@ -142,6 +162,10 @@ class PostSerializerTest(TestCase):
         )
 
     def test_one_article(self):
+        """
+        Verify that a Post with one article is deserialized correctly.
+        :return:
+        """
         p = Post.objects.get(pk=self.post4_id)
         serialized_data = PostSerializer(p).data
 
@@ -162,9 +186,16 @@ class PostSerializerTest(TestCase):
 
     @patch('storages.backends.s3boto3.S3Boto3Storage.url')
     @patch('storages.backends.s3boto3.S3Boto3Storage.save')
-    def test_multiple_assets(self, mock_filename, url_name):
+    def test_multiple_assets(self, mock_filename, mock_url_name):
+        """
+        Verify that a post with multiple videos and articles have the correct order and are
+        deserialized properly.
+        :param mock_filename:
+        :param mock_url_name:
+        :return:
+        """
         mock_filename.return_value = 'filename'
-        url_name.return_value = 'localhost'
+        mock_url_name.return_value = 'localhost'
         p = Post.objects.get(pk=self.post5_id)
         v1, v2 = Video.objects.get(pk=self.video3_id), Video.objects.get(pk=self.video4_id)
         v1.file.save('filename', BytesIO(b'file'), save=True)
