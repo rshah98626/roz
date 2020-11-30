@@ -12,4 +12,4 @@ class VideoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Video
-        fields = ['description', 'created_at', 'url']
+        fields = ['description', 'created_at', 'url', 'id']

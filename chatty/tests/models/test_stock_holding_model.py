@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 class StockHoldingModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        fund = Fund(cash_on_hand_cents=0)
+        fund = Fund(name="First fund", cash_on_hand_cents=0)
         fund.save()
 
         cls.ticker = 'AAPL'

@@ -7,7 +7,7 @@ class Fund(models.Model):
     """
     This object represents a group of holdings based around a certain strategy.
     """
-
+    name = models.CharField('The name of the fund', max_length=100, unique=True)
     cash_on_hand_cents = models.IntegerField(
         "Money not in investments (cents)", default=0)
 
@@ -27,3 +27,6 @@ class Fund(models.Model):
         """
         total = sum(holding.value for holding in self.holdings.all())
         return total + self.cash
+
+    def __str__(self):
+        return f"{self.name}"

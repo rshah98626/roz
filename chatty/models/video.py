@@ -2,7 +2,7 @@
 
 from django.db import models
 from roz.custom_storage import VideoStorage
-from chatty.models import Fund
+from chatty.models import Post
 
 
 class Video(models.Model):
@@ -15,7 +15,7 @@ class Video(models.Model):
     file = models.FileField('The video file instance', storage=VideoStorage())
     description = models.TextField(
         'A description of what the video is about', null=True)
-    fund = models.ForeignKey(Fund, related_name='videos',
+    post = models.ForeignKey(Post, related_name='videos',
                              on_delete=models.SET_NULL, null=True)
 
     def get_url(self):

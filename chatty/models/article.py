@@ -1,7 +1,7 @@
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 from django.db import models
-from .fund import Fund
+from chatty.models import Post
 
 
 class Article(models.Model):
@@ -12,5 +12,5 @@ class Article(models.Model):
     created_at = models.DateTimeField(
         'When the article was created', auto_now_add=True)
     text = models.TextField('The long form content of the article')
-    fund = models.ForeignKey(
-        Fund, related_name='articles', on_delete=models.SET_NULL, null=True)
+    post = models.ForeignKey(Post, related_name='articles',
+                             on_delete=models.SET_NULL, null=True)

@@ -2,10 +2,11 @@
 
 from io import BytesIO
 from unittest.mock import patch
+
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
-from chatty.models import Fund, Video
-from chatty.views import VideoUploadView
+
+from chatty.models import Fund, Video, Post
 from users.models import Account
 
 
@@ -27,13 +28,12 @@ class VideoUploadTest(APITestCase):
         cls.user.set_password(cls.password)
         cls.user.save()
 
-        fund = Fund(cash_on_hand_cents=100)
+        fund = Fund(name="First fund", cash_on_hand_cents=100)
         fund.save()
         cls.fund_pk = fund.pk
 
     def setUp(self):
         self.client = APIClient()
-        self.testable_view = VideoUploadView.as_view()
         self.client.force_authenticate(user=self.user)
         self.filename = "firstVideo"
 
@@ -57,8 +57,11 @@ class VideoUploadTest(APITestCase):
         json = response.json()
 
         latest_video = Video.objects.latest('id')
+        latest_post = Post.objects.latest('id')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(latest_video)
+        self.assertIsNotNone(latest_post)
+        self.assertEqual(latest_post.videos.first(), latest_video)
         self.assertEqual(json['message'], 'Video created')
         self.assertEqual(json['video_id'], latest_video.id)
         self.assertTrue(f'_fund_{self.fund_pk}_{self.filename}.mp4' in json['filename'])
@@ -82,8 +85,11 @@ class VideoUploadTest(APITestCase):
         json = response.json()
 
         latest_video = Video.objects.latest('id')
+        latest_post = Post.objects.latest('id')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(latest_video)
+        self.assertIsNotNone(latest_post)
+        self.assertEqual(latest_post.videos.first(), latest_video)
         self.assertEqual(json['message'], 'Video created')
         self.assertEqual(json['video_id'], latest_video.id)
         self.assertTrue(f'_fund_{self.fund_pk}_{self.filename}.mov' in json['filename'])

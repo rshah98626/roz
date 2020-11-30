@@ -1,13 +1,14 @@
 #  Copyright (c) 2020. Property of Wonderwerk, all rights reserved.
 
 from django.test import TestCase
-from chatty.models import Fund, StockHolding, Post, Article, Video
+from chatty.models import Fund, StockHolding, Post
 
 
 class FundModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.fund_cash = 1000
+        cls.fund_name = 'First Fund'
         cls.ticker1 = 'AAPL'
         cls.stock_price1 = 50000
         cls.stock_quantity1 = 10
@@ -20,6 +21,7 @@ class FundModelTest(TestCase):
                                " to do well during earnings."
 
         fund = Fund(
+            name=cls.fund_name,
             cash_on_hand_cents=cls.fund_cash
         )
         fund.save()
@@ -54,19 +56,6 @@ class FundModelTest(TestCase):
         )
         post2.save()
 
-        # init article
-        article1 = Article(
-            text=cls.article_message1,
-            fund=fund
-        )
-        article1.save()
-
-        # init video
-        video1 = Video(
-            fund=fund
-        )
-        video1.save()
-
     def test_cash_in_dollars(self):
         self.assertEqual(Fund.objects.latest('id').cash, self.fund_cash / 100)
 
@@ -99,18 +88,19 @@ class FundModelTest(TestCase):
 
     def test_field_labels(self):
         fund = Fund.objects.latest('id')
-        self.assertEqual(fund._meta.get_field(
-            'cash_on_hand_cents').verbose_name, 'Money not in investments (cents)')
+        self.assertEqual(fund._meta.get_field('cash_on_hand_cents').verbose_name,
+                         'Money not in investments (cents)')
+        self.assertEqual(fund._meta.get_field('name').verbose_name,
+                         'The name of the fund')
 
     def test_cash_cents_is_correct(self):
-        self.assertEqual(Fund.objects.latest(
-            'id').cash_on_hand_cents, self.fund_cash)
+        self.assertEqual(Fund.objects.latest('id').cash_on_hand_cents,
+                         self.fund_cash)
 
-    def test_article(self):
+    def test_fund_name(self):
         fund = Fund.objects.latest('id')
-        self.assertEqual(len(fund.articles.all()), 1)
-        self.assertEqual(fund.articles.first().text, self.article_message1)
+        self.assertEqual(fund.name, self.fund_name)
 
-    def test_video(self):
+    def test_fund_to_string(self):
         fund = Fund.objects.latest('id')
-        self.assertEqual(len(fund.videos.all()), 1)
+        self.assertEqual(fund.__str__(), self.fund_name)
